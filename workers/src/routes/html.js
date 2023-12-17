@@ -162,14 +162,15 @@ body {
 }
 `;
 const makeCssColor = (color) => `rgba(${color._rgb.map(Math.floor).join()})`;
-export const HTMLRoute = (props) => {
-	const label = props.product.name.map((_) => _.split(' ')).reduce((a, b) => a.concat(b), []);
+
+export const HTMLRoute = ({ product }) => {
+	const label = product.name.map((_) => _.split(' ')).reduce((a, b) => a.concat(b), []);
 
 	const cssVars = {
-		'bg-hero': makeCssColor(props.product.colors.hero),
-		'bg-roundel': makeCssColor(props.product.colors.roundel),
+		'bg-hero': makeCssColor(product.colors.hero),
+		'bg-roundel': makeCssColor(product.colors.roundel),
 		rotation: `${5 - Math.random() * 10}deg`,
-		body: makeCssColor(props.product.colors.all[0]),
+		body: makeCssColor(product.colors.all[0]),
 	};
 	return new Response(
 		`<html>
@@ -182,10 +183,10 @@ export const HTMLRoute = (props) => {
 						${label.map((l) => `<span>${l}</span>`)}
 					</div>
 					<div class="edibles">
-						${props.product.edibles.map((l) => `<img src="${l}" />`)}
+						${product.edibles.map((l) => `<img src="${l}" />`)}
 					</div>
 				</div>
-				${props.product.zero ? `<div class="zero"></div>` : ''}
+				${product.zero ? `<div class="zero"></div>` : ''}
 			</div>
 		</body>
 		</html>`,
